@@ -1,0 +1,22 @@
+Package: miniSTICS
+Title: A Simple Crop Model Derived from STICS
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Samuel", "Buis", , "samuel.buis@inrae.fr", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-8676-5447")),
+    person("Benjamin", "Dumont", , "benjamin.dumont@uliege.be", role = c("aut"), comment = c(ORCID = "0000-0001-8411-3990")),
+    person("Meije", "Gawinowski", , "meije.gawinowski@agroparistech.fr", role = c("aut"), comment = c(ORCID = "0000-0002-9082-8463"))
+    )
+Description: Implements the miniSTICS crop model, a simplified version of the STICS crop model designed for applications requiring reduced model complexity while preserving the main crop growth processes.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends: 
+    R (>= 3.5)
+LazyData: true
+Imports: 
+    dplyr,
+    tibble

@@ -1,0 +1,109 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# miniSTICS
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/SticsRPacks/miniSTICS/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SticsRPacks/miniSTICS/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+`miniSTICS` is a simplified crop model derived from the [STICS](https://www6.paca.inrae.fr/stics/) soil-crop model.
+
+The model simulates crop development, biomass production and soil water balance with reduced complexity, while preserving the main processes controlling phenology and water stress.
+
+`miniSTICS` is particularly suited for crops sensitive to vernalization and photoperiod, such as winter wheat.
+
+## Installation
+
+You can install the development version of `miniSTICS` from GitHub using:
+
+```{r install, eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("SticsRPacks/miniSTICS")
+```
+
+Load the package:
+
+```{r load}
+library(miniSTICS)
+```
+
+## Example
+
+The package provides example datasets allowing a first simulation to be run.
+
+```{r example}
+data(soil_example)
+data(weather_station_example)
+data(practices_example)
+data(weather_example)
+
+plant <- plant_parameters()
+
+result <- miniSTICS(
+  soil = soil_example,
+  weather_station = weather_station_example,
+  practices = practices_example,
+  plant = plant,
+  weather = weather_example
+)
+
+names(result)
+```
+
+## Customize plant parameters
+
+Plant parameters can be modified before running a simulation:
+
+```{r customize}
+plant <- plant_parameters(
+  rue = 3.5,
+  flag_vern = FALSE
+)
+
+result_modified <- miniSTICS(
+  soil = soil_example,
+  weather_station = weather_station_example,
+  practices = practices_example,
+  plant = plant,
+  weather = weather_example
+)
+```
+
+## Input data
+
+A `miniSTICS` simulation requires five types of inputs:
+
+- `plant`: plant parameters defining crop characteristics.
+- `soil`: soil description and initial soil water conditions.
+- `weather_station`: geographical information of the weather station.
+- `practices`: crop management parameters (sowing date, density, etc.).
+- `weather`: daily weather data used as model forcing.
+
+The package provides example datasets for all inputs except plant parameters, which are generated using `plant_parameters()`.
+
+## Documentation
+
+More information about the STICS model can be found in:
+
+- Brisson et al. (1998). STICS: a generic model for the simulation of crops and their water and nitrogen balances. *Agronomie*, 18(5–6), 311–346.
+- Tremblay & Wallach (2004). Calibration of a crop model using Bayesian approach. *Agronomie*, 24(6–7), 351–365.
+- Beaudoin et al. (2023). STICS soil-crop model: Conceptual framework, equations and uses.
+
+## License
+
+This package contains code derived from external sources originally licensed under the Apache License, Version 2.0.
+
+See the `LICENSE` file for details.
