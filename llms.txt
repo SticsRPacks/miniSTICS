@@ -1,0 +1,148 @@
+# miniSTICS
+
+`miniSTICS` is a simplified crop model derived from the
+[STICS](https://www6.paca.inrae.fr/stics/) soil-crop model.
+
+The model simulates crop development, biomass production and soil water
+balance with reduced complexity, while preserving the main processes
+controlling phenology and water stress.
+
+`miniSTICS` is particularly suited for crops sensitive to vernalization
+and photoperiod, such as winter wheat.
+
+## Installation
+
+You can install the development version of `miniSTICS` from GitHub
+using:
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("SticsRPacks/miniSTICS")
+```
+
+Load the package:
+
+``` r
+
+library(miniSTICS)
+```
+
+## Example
+
+The package provides example datasets allowing a first simulation to be
+run.
+
+``` r
+
+data(soil_example)
+data(weather_station_example)
+data(practices_example)
+data(weather_example)
+
+plant <- plant_parameters()
+
+result <- miniSTICS(
+  soil = soil_example,
+  weather_station = weather_station_example,
+  practices = practices_example,
+  plant = plant,
+  weather = weather_example
+)
+
+names(result)
+#>  [1] "D_Cal"              "doy"                "Radiation"         
+#>  [4] "Rain"               "ETP"                "Temp"              
+#>  [7] "UDEVCULT"           "JVI"                "RFVI"              
+#> [10] "Photoperiod"        "RFPI"               "Sum_UPVT"          
+#> [13] "DOY_2GER"           "DOY_2EMERG"         "DOY_2Z30"          
+#> [16] "DOY_2Z39"           "DOY_2Z65"           "DOY_2Z89"          
+#> [19] "PFZ1"               "PFZ2"               "DeltaZEff"         
+#> [22] "DeltaZ"             "ZRac"               "ULAI"              
+#> [25] "DELTAI_dev"         "DELTAI"             "DELTAI_stress"     
+#> [28] "DELTAI_sen"         "LAI"                "LAI_unstressed"    
+#> [31] "EOS"                "FlagRain"           "SEOS"              
+#> [34] "FlagPhase2"         "SES"                "ES"                
+#> [37] "ES_a"               "ESol_sum"           "HUR1"              
+#> [40] "EO"                 "EOP"                "ZDemi"             
+#> [43] "CUMULRACZ"          "TETA1"              "TETA2"             
+#> [46] "TETA"               "TETA_moy"           "EP"                
+#> [49] "EP_sum"             "EP_1_th"            "EP_2_th"           
+#> [52] "EP_1_a"             "EP_2_a"             "HUR2"              
+#> [55] "SWFAC"              "DELTAMS"            "DELTAMS_unstressed"
+#> [58] "MASEC"              "MASEC_unstressed"   "DRAIN1"            
+#> [61] "DRAIN2"             "DELTAIunstr_sen"
+```
+
+## Customize plant parameters
+
+Plant parameters can be modified before running a simulation:
+
+``` r
+
+plant <- plant_parameters(
+  rue = 3.5,
+  flag_vern = FALSE
+)
+
+result_modified <- miniSTICS(
+  soil = soil_example,
+  weather_station = weather_station_example,
+  practices = practices_example,
+  plant = plant,
+  weather = weather_example
+)
+```
+
+## Input data
+
+A `miniSTICS` simulation requires five types of inputs:
+
+- `plant`: plant parameters defining crop characteristics.
+- `soil`: soil description and initial soil water conditions.
+- `weather_station`: geographical information of the weather station.
+- `practices`: crop management parameters (sowing date, density, etc.).
+- `weather`: daily weather data used as model forcing.
+
+The package provides example datasets for all inputs except plant
+parameters, which are generated using
+[`plant_parameters()`](reference/plant_parameters.md).
+
+## Documentation
+
+More information about the STICS model can be found in:
+
+- Brisson et al. (1998). STICS: a generic model for the simulation of
+  crops and their water and nitrogen balances. *Agronomie*, 18(5–6),
+  311–346.
+- Tremblay & Wallach (2004). Calibration of a crop model using Bayesian
+  approach. *Agronomie*, 24(6–7), 351–365.
+- Beaudoin et al. (2023). STICS soil-crop model: Conceptual framework,
+  equations and uses.
+
+## License
+
+This package contains code derived from external sources originally
+licensed under the Apache License, Version 2.0.
+
+See the `LICENSE` file for details.
+
+# Package index
+
+## All functions
+
+- [`check_practices()`](check_practices.md) : Check miniSTICS crop
+  management parameters
+- [`check_soil()`](check_soil.md) : Check miniSTICS soil parameters
+- [`miniSTICS()`](miniSTICS.md) : Run the miniSTICS crop model
+- [`plant_parameters()`](plant_parameters.md) : Create miniSTICS plant
+  parameters
+- [`practices_example`](practices_example.md) : Example crop management
+  practices for miniSTICS
+- [`soil_example`](soil_example.md) : Example soil parameters for
+  miniSTICS
+- [`weather_example`](weather_example.md) : Example weather dataset for
+  miniSTICS
+- [`weather_station_example`](weather_station_example.md) : Example
+  weather station for miniSTICS
+
