@@ -69,7 +69,11 @@ valid_plant <- function() {
     parsurg = 1,
     extin = 1,
     rue = 1,
-    tetstomate = 1
+    tetstomate = 1,
+    temin = 1,
+    teopt = 1,
+    teoptbis = 1,
+    temax = 1
   )
 }
 
