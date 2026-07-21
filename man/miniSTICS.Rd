@@ -114,6 +114,19 @@ Biomass:
 Water stress:
 \itemize{
 \item tetstomate: Soil water threshold for stomatal closure (\% vol)
+}
+
+Grain Yield :
+\itemize{
+\item nbjgrain : Number of days prior flowering preceding the onset of filling and impacting grain number set up (days)
+\item cgrain : species-dependent parameters accounting for the slope of the relationship vitmoy - nbgrains (m^2.g^-1)
+\item nbgrainmax : genetic-dependent parameter setting up the maximal number of grains (grains.m^-2)
+\item nbgrainmin : genetic-dependent parameter setting up the minimal number of grains (grains.m^-2)
+\item vitircarbt : slope of the linearly increase in the dynamic harvest index against thermal time (g_grain. g_biomass^-1.dc-day^-1)
+\item irmax : maximal harvest index (-)
+\item pgrainmaxi : maximal weight of grains at 0\% water content (g)
+\item tminremp : minimal temperature for grain filling (°C)
+\item tmaxremp : maximal temperature for grain filling (°C)
 }}
 
 \item{weather}{a data.frame containing daily weather data used as
@@ -161,7 +174,9 @@ The model sequentially computes:
 (2) leaf area expansion,
 (3) root growth and water uptake,
 (4) soil water balance,
-(5) biomass accumulation and partitioning.
+(5) biomass accumulation and partitioning
+(6) grain number and grain yield
+(7) water budget
 }
 \examples{
 # Run miniSTICS with the example dataset provided with the package
