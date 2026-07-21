@@ -809,11 +809,12 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
 
     # PGRAIN
     # ******
-    ministics$PGRAIN[i] <- ministics$YIELD[i]/ministics$NBGRAIN[i]*100
-
-    if (ministics$PGRAIN[i] > pgrainmaxi) {ministics$PGRAIN[i] <- pgrainmaxi}
-
-
+    if (ministics$NBGRAIN[i] > 0) {
+      ministics$PGRAIN[i] <- ministics$YIELD[i]/ministics$NBGRAIN[i]*100
+      if (ministics$PGRAIN[i] > pgrainmaxi) {ministics$PGRAIN[i] <- pgrainmaxi}
+    } else {
+      ministics$PGRAIN[i] <- 0
+    }
 
     # WATER BUDGET
     # ------------
