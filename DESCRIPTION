@@ -22,3 +22,5 @@ Imports:
     dplyr,
 	future.apply,
     tibble
+Remotes:
+    github::SticsRPacks/CroptimizR@*release
