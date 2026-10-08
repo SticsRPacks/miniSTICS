@@ -18,5 +18,7 @@ Depends:
     R (>= 3.5)
 LazyData: true
 Imports: 
+	CroptimizR,
     dplyr,
+	future.apply,
     tibble
