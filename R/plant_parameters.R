@@ -17,6 +17,7 @@
 #' \itemize{
 #'   \item tcmin: Base temperature (°C)
 #'   \item tcopt: Optimal temperature (°C)
+#'   \item tcxstop : Temperature at which phenological development stops (°c)
 #'   \item flag_vern: Vernalization sensitivity (logical)
 #'   \item jvc: Vernalization requirement (days)
 #'   \item tfroid: Optimal vernalization temperature (°C)
@@ -66,7 +67,7 @@
 #'   \item rue: Radiation use efficiency (g MJ-1)
 #'   \item temin: minimal temperature for plant growth (°C)
 #'   \item teopt: minimum range of optimal temperature for plant growth (°C)
-#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C) 
+#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C)
 #'   \item temax: Maximal temperature above which plant growth stops (°C)
 #' }
 #'
@@ -74,6 +75,20 @@
 #' \itemize{
 #'   \item tetstomate: Soil water threshold for stomatal closure
 #' }
+#'
+#' Grain Yield :
+#' \itemize{
+#'   \item nbjgrain : Number of days prior flowering preceding the onset of filling and impacting grain number set up (days)
+#'   \item cgrain : species-dependent parameters accounting for the slope of the relationship vitmoy - nbgrains (m^2.g^-1)
+#'   \item nbgrainmax : genetic-dependent parameter setting up the maximal number of grains (grains.m^-2)
+#'   \item nbgrainmin : genetic-dependent parameter setting up the minimal number of grains (grains.m^-2)
+#'   \item vitircarbt : slope of the linearly increase in the dynamic harvest index against thermal time (g_grain. g_biomass^-1.dc-day^-1)
+#'   \item irmax : maximal harvest index (-)
+#'   \item pgrainmaxi : maximal weight of grains at 0% water content (g)
+#'   \item tminremp : minimal temperature for grain filling (°C)
+#'   \item tmaxremp : maximal temperature for grain filling (°C)
+#' }
+#'
 #'
 #' @examples
 #' # Default parameter set
@@ -95,6 +110,7 @@ plant_parameters <- function(...) {
     teopt=12,
     teoptbis=17,
     temax=40,
+    tcxstop = 45,
     flag_vern = TRUE,
     jvc = 45,
     tfroid = 6.5,
@@ -128,7 +144,17 @@ plant_parameters <- function(...) {
     extin = 0.5,
     rue = 4.2,
 
-    tetstomate = 0.05
+    tetstomate = 0.05,
+
+    nbjgrain = 15,
+    cgrain = 0.036,
+    nbgrainmax = 30000,
+    nbgrainmin = 6000,
+    vitircarbt = 0.00065,
+    irmax = 0.55,
+    pgrainmaxi = 0.052,
+    tminremp = 0,
+    tmaxremp = 38
   )
   overrides <- list(...)
 
