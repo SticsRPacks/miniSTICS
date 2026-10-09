@@ -26,6 +26,7 @@ Phenology:
 \itemize{
 \item tcmin: Base temperature (°C)
 \item tcopt: Optimal temperature (°C)
+\item tcxstop : Temperature at which phenological development stops (°c)
 \item flag_vern: Vernalization sensitivity (logical)
 \item jvc: Vernalization requirement (days)
 \item tfroid: Optimal vernalization temperature (°C)
