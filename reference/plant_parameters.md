@@ -99,6 +99,14 @@ Biomass:
 
 - rue: Radiation use efficiency (g MJ-1)
 
+- temin: minimal temperature for plant growth (°C)
+
+- teopt: minimum range of optimal temperature for plant growth (°C)
+
+- teoptbis: maximum range of optimal temperature for plant growth (°C)
+
+- temax: Maximal temperature above which plant growth stops (°C)
+
 Water stress:
 
 - tetstomate: Soil water threshold for stomatal closure

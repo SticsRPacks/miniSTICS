@@ -118,6 +118,10 @@ while preserving the main processes controlling crop development and water stres
 </ul><p>Biomass:</p><ul><li><p>parsurg: PAR fraction</p></li>
 <li><p>extin: Light extinction coefficient</p></li>
 <li><p>rue: Radiation use efficiency (g MJ-1)</p></li>
+<li><p>temin: minimal temperature for plant growth (°C)</p></li>
+<li><p>teopt: minimum range of optimal temperature for plant growth (°C)</p></li>
+<li><p>teoptbis: maximum range of optimal temperature for plant growth (°C)</p></li>
+<li><p>temax: Maximal temperature above which plant growth stops (°C)</p></li>
 </ul><p>Water stress:</p><ul><li><p>tetstomate: Soil water threshold for stomatal closure (% vol)</p></li>
 </ul><p>Grain Yield :</p><ul><li><p>nbjgrain : Number of days prior flowering preceding the onset of filling and impacting grain number set up (days)</p></li>
 <li><p>cgrain : species-dependent parameters accounting for the slope of the relationship vitmoy - nbgrains (m^2.g^-1)</p></li>
@@ -207,11 +211,11 @@ water balance, and biomass accumulation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [46] "TETA"               "TETA_moy"           "EP"                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [49] "EP_sum"             "EP_1_th"            "EP_2_th"           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [52] "EP_1_a"             "EP_2_a"             "HUR2"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "SWFAC"              "DELTAMS"            "DELTAMS_unstressed"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "MASEC"              "MASEC_unstressed"   "DRAIN1"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "DRAIN2"             "NBGRAIN"            "IRCARB"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "PGRAIN"             "FTEMPREMP"          "DELTAGS"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "YIELD"              "DELTAIunstr_sen"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "SWFAC"              "FTEMP"              "DELTAMS"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "DELTAMS_unstressed" "MASEC"              "MASEC_unstressed"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "DRAIN1"             "DRAIN2"             "NBGRAIN"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "IRCARB"             "PGRAIN"             "FTEMPREMP"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "DELTAGS"            "YIELD"              "DELTAIunstr_sen"   </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000</span>
@@ -255,20 +259,27 @@ water balance, and biomass accumulation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 -25.86957 0.5207498     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EP_1_a EP_2_a HUR2 SWFAC DELTAMS DELTAMS_unstressed MASEC MASEC_unstressed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD DELTAIunstr_sen</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0       0      0      0         1       0     0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0       0      0      0         1       0     0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0       0      0      0         1       0     0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0       0      0      0         1       0     0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0       0      0      0         1       0     0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   EP_1_a EP_2_a HUR2 SWFAC     FTEMP DELTAMS DELTAMS_unstressed MASEC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0  0.3     1 1.0000000       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0  0.3     1 0.8193750       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0  0.3     1 0.8193750       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0  0.3     1 0.8997222       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0  0.3     1 0.9493750       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0  0.3     1 0.9822222       0                  0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   MASEC_unstressed DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                0      0      0       0      0      0         1       0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   DELTAIunstr_sen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6               0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modify plant parameters before running a new simulation</span></span></span>
 <span class="r-in"><span><span class="va">plant</span><span class="op">$</span><span class="va">rue</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span></span>

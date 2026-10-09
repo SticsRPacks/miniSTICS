@@ -154,6 +154,14 @@ miniSTICS(soil, weather_station, practices, plant, weather)
 
   - rue: Radiation use efficiency (g MJ-1)
 
+  - temin: minimal temperature for plant growth (°C)
+
+  - teopt: minimum range of optimal temperature for plant growth (°C)
+
+  - teoptbis: maximum range of optimal temperature for plant growth (°C)
+
+  - temax: Maximal temperature above which plant growth stops (°C)
+
   Water stress:
 
   - tetstomate: Soil water threshold for stomatal closure (% vol)
@@ -276,11 +284,11 @@ names(result)
 #> [46] "TETA"               "TETA_moy"           "EP"                
 #> [49] "EP_sum"             "EP_1_th"            "EP_2_th"           
 #> [52] "EP_1_a"             "EP_2_a"             "HUR2"              
-#> [55] "SWFAC"              "DELTAMS"            "DELTAMS_unstressed"
-#> [58] "MASEC"              "MASEC_unstressed"   "DRAIN1"            
-#> [61] "DRAIN2"             "NBGRAIN"            "IRCARB"            
-#> [64] "PGRAIN"             "FTEMPREMP"          "DELTAGS"           
-#> [67] "YIELD"              "DELTAIunstr_sen"   
+#> [55] "SWFAC"              "FTEMP"              "DELTAMS"           
+#> [58] "DELTAMS_unstressed" "MASEC"              "MASEC_unstressed"  
+#> [61] "DRAIN1"             "DRAIN2"             "NBGRAIN"           
+#> [64] "IRCARB"             "PGRAIN"             "FTEMPREMP"         
+#> [67] "DELTAGS"            "YIELD"              "DELTAIunstr_sen"   
 head(result)
 #>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI
 #> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000
@@ -324,20 +332,27 @@ head(result)
 #> 4 -25.86957 0.0000000     0     0    0        0  0      0       0       0
 #> 5 -25.86957 0.0000000     0     0    0        0  0      0       0       0
 #> 6 -25.86957 0.5207498     0     0    0        0  0      0       0       0
-#>   EP_1_a EP_2_a HUR2 SWFAC DELTAMS DELTAMS_unstressed MASEC MASEC_unstressed
-#> 1      0      0  0.3     1       0                  0     0                0
-#> 2      0      0  0.3     1       0                  0     0                0
-#> 3      0      0  0.3     1       0                  0     0                0
-#> 4      0      0  0.3     1       0                  0     0                0
-#> 5      0      0  0.3     1       0                  0     0                0
-#> 6      0      0  0.3     1       0                  0     0                0
-#>   DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD DELTAIunstr_sen
-#> 1      0      0       0      0      0         1       0     0               0
-#> 2      0      0       0      0      0         1       0     0               0
-#> 3      0      0       0      0      0         1       0     0               0
-#> 4      0      0       0      0      0         1       0     0               0
-#> 5      0      0       0      0      0         1       0     0               0
-#> 6      0      0       0      0      0         1       0     0               0
+#>   EP_1_a EP_2_a HUR2 SWFAC     FTEMP DELTAMS DELTAMS_unstressed MASEC
+#> 1      0      0  0.3     1 1.0000000       0                  0     0
+#> 2      0      0  0.3     1 0.8193750       0                  0     0
+#> 3      0      0  0.3     1 0.8193750       0                  0     0
+#> 4      0      0  0.3     1 0.8997222       0                  0     0
+#> 5      0      0  0.3     1 0.9493750       0                  0     0
+#> 6      0      0  0.3     1 0.9822222       0                  0     0
+#>   MASEC_unstressed DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD
+#> 1                0      0      0       0      0      0         1       0     0
+#> 2                0      0      0       0      0      0         1       0     0
+#> 3                0      0      0       0      0      0         1       0     0
+#> 4                0      0      0       0      0      0         1       0     0
+#> 5                0      0      0       0      0      0         1       0     0
+#> 6                0      0      0       0      0      0         1       0     0
+#>   DELTAIunstr_sen
+#> 1               0
+#> 2               0
+#> 3               0
+#> 4               0
+#> 5               0
+#> 6               0
 
 # Modify plant parameters before running a new simulation
 plant$rue <- 3.5
