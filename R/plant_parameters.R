@@ -65,6 +65,10 @@
 #'   \item parsurg: PAR fraction
 #'   \item extin: Light extinction coefficient
 #'   \item rue: Radiation use efficiency (g MJ-1)
+#'   \item temin: minimal temperature for plant growth (°C)
+#'   \item teopt: minimum range of optimal temperature for plant growth (°C)
+#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C)
+#'   \item temax: Maximal temperature above which plant growth stops (°C)
 #' }
 #'
 #' Water stress:
@@ -102,6 +106,10 @@ plant_parameters <- function(...) {
   params <- list(
     tcmin = 0,
     tcopt = 35,
+    temin=0,
+    teopt=12,
+    teoptbis=17,
+    temax=40,
     tcxstop = 45,
     flag_vern = TRUE,
     jvc = 45,
@@ -148,7 +156,6 @@ plant_parameters <- function(...) {
     tminremp = 0,
     tmaxremp = 38
   )
-
   overrides <- list(...)
 
   if (length(overrides) > 0) {
