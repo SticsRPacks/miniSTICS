@@ -118,6 +118,15 @@ while preserving the main processes controlling crop development and water stres
 <li><p>extin: Light extinction coefficient</p></li>
 <li><p>rue: Radiation use efficiency (g MJ-1)</p></li>
 </ul><p>Water stress:</p><ul><li><p>tetstomate: Soil water threshold for stomatal closure (% vol)</p></li>
+</ul><p>Grain Yield :</p><ul><li><p>nbjgrain : Number of days prior flowering preceding the onset of filling and impacting grain number set up (days)</p></li>
+<li><p>cgrain : species-dependent parameters accounting for the slope of the relationship vitmoy - nbgrains (m^2.g^-1)</p></li>
+<li><p>nbgrainmax : genetic-dependent parameter setting up the maximal number of grains (grains.m^-2)</p></li>
+<li><p>nbgrainmin : genetic-dependent parameter setting up the minimal number of grains (grains.m^-2)</p></li>
+<li><p>vitircarbt : slope of the linearly increase in the dynamic harvest index against thermal time (g_grain. g_biomass^-1.dc-day^-1)</p></li>
+<li><p>irmax : maximal harvest index (-)</p></li>
+<li><p>pgrainmaxi : maximal weight of grains at 0% water content (g)</p></li>
+<li><p>tminremp : minimal temperature for grain filling (°C)</p></li>
+<li><p>tmaxremp : maximal temperature for grain filling (°C)</p></li>
 </ul></dd>
 
 
@@ -152,7 +161,9 @@ water balance, and biomass accumulation.</p>
 (2) leaf area expansion,
 (3) root growth and water uptake,
 (4) soil water balance,
-(5) biomass accumulation and partitioning.</p>
+(5) biomass accumulation and partitioning
+(6) grain number and grain yield
+(7) water budget</p>
     </div>
 
     <div class="section level2">
@@ -197,7 +208,9 @@ water balance, and biomass accumulation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [52] "EP_1_a"             "EP_2_a"             "HUR2"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [55] "SWFAC"              "DELTAMS"            "DELTAMS_unstressed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [58] "MASEC"              "MASEC_unstressed"   "DRAIN1"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "DRAIN2"             "DELTAIunstr_sen"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "DRAIN2"             "NBGRAIN"            "IRCARB"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "PGRAIN"             "FTEMPREMP"          "DELTAGS"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "YIELD"              "DELTAIunstr_sen"   </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000</span>
@@ -248,13 +261,13 @@ water balance, and biomass accumulation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0  0.3     1       0                  0     0                0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0  0.3     1       0                  0     0                0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0  0.3     1       0                  0     0                0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   DRAIN1 DRAIN2 DELTAIunstr_sen</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD DELTAIunstr_sen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0       0      0      0         1       0     0               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0       0      0      0         1       0     0               0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modify plant parameters before running a new simulation</span></span></span>
 <span class="r-in"><span><span class="va">plant</span><span class="op">$</span><span class="va">rue</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span></span>

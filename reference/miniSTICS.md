@@ -156,6 +156,31 @@ miniSTICS(soil, weather_station, practices, plant, weather)
 
   - tetstomate: Soil water threshold for stomatal closure (% vol)
 
+  Grain Yield :
+
+  - nbjgrain : Number of days prior flowering preceding the onset of
+    filling and impacting grain number set up (days)
+
+  - cgrain : species-dependent parameters accounting for the slope of
+    the relationship vitmoy - nbgrains (m^2.g^-1)
+
+  - nbgrainmax : genetic-dependent parameter setting up the maximal
+    number of grains (grains.m^-2)
+
+  - nbgrainmin : genetic-dependent parameter setting up the minimal
+    number of grains (grains.m^-2)
+
+  - vitircarbt : slope of the linearly increase in the dynamic harvest
+    index against thermal time (g_grain. g_biomass^-1.dc-day^-1)
+
+  - irmax : maximal harvest index (-)
+
+  - pgrainmaxi : maximal weight of grains at 0% water content (g)
+
+  - tminremp : minimal temperature for grain filling (°C)
+
+  - tmaxremp : maximal temperature for grain filling (°C)
+
 - weather:
 
   a data.frame containing daily weather data used as forcing for the
@@ -205,7 +230,8 @@ found in:
 
 The model sequentially computes: (1) phenological development, (2) leaf
 area expansion, (3) root growth and water uptake, (4) soil water
-balance, (5) biomass accumulation and partitioning.
+balance, (5) biomass accumulation and partitioning (6) grain number and
+grain yield (7) water budget
 
 ## Examples
 
@@ -250,7 +276,9 @@ names(result)
 #> [52] "EP_1_a"             "EP_2_a"             "HUR2"              
 #> [55] "SWFAC"              "DELTAMS"            "DELTAMS_unstressed"
 #> [58] "MASEC"              "MASEC_unstressed"   "DRAIN1"            
-#> [61] "DRAIN2"             "DELTAIunstr_sen"   
+#> [61] "DRAIN2"             "NBGRAIN"            "IRCARB"            
+#> [64] "PGRAIN"             "FTEMPREMP"          "DELTAGS"           
+#> [67] "YIELD"              "DELTAIunstr_sen"   
 head(result)
 #>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI
 #> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000
@@ -301,13 +329,13 @@ head(result)
 #> 4      0      0  0.3     1       0                  0     0                0
 #> 5      0      0  0.3     1       0                  0     0                0
 #> 6      0      0  0.3     1       0                  0     0                0
-#>   DRAIN1 DRAIN2 DELTAIunstr_sen
-#> 1      0      0               0
-#> 2      0      0               0
-#> 3      0      0               0
-#> 4      0      0               0
-#> 5      0      0               0
-#> 6      0      0               0
+#>   DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD DELTAIunstr_sen
+#> 1      0      0       0      0      0         1       0     0               0
+#> 2      0      0       0      0      0         1       0     0               0
+#> 3      0      0       0      0      0         1       0     0               0
+#> 4      0      0       0      0      0         1       0     0               0
+#> 5      0      0       0      0      0         1       0     0               0
+#> 6      0      0       0      0      0         1       0     0               0
 
 # Modify plant parameters before running a new simulation
 plant$rue <- 3.5

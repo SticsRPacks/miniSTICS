@@ -101,6 +101,31 @@ Water stress:
 
 - tetstomate: Soil water threshold for stomatal closure
 
+Grain Yield :
+
+- nbjgrain : Number of days prior flowering preceding the onset of
+  filling and impacting grain number set up (days)
+
+- cgrain : species-dependent parameters accounting for the slope of the
+  relationship vitmoy - nbgrains (m^2.g^-1)
+
+- nbgrainmax : genetic-dependent parameter setting up the maximal number
+  of grains (grains.m^-2)
+
+- nbgrainmin : genetic-dependent parameter setting up the minimal number
+  of grains (grains.m^-2)
+
+- vitircarbt : slope of the linearly increase in the dynamic harvest
+  index against thermal time (g_grain. g_biomass^-1.dc-day^-1)
+
+- irmax : maximal harvest index (-)
+
+- pgrainmaxi : maximal weight of grains at 0% water content (g)
+
+- tminremp : minimal temperature for grain filling (°C)
+
+- tmaxremp : maximal temperature for grain filling (°C)
+
 ## Examples
 
 ``` r
