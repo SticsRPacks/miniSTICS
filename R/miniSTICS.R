@@ -124,7 +124,7 @@
 #'   \item rue: Radiation use efficiency (g MJ-1)
 #'   \item temin: minimal temperature for plant growth (°C)
 #'   \item teopt: minimum range of optimal temperature for plant growth (°C)
-#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C) 
+#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C)
 #'   \item temax: Maximal temperature above which plant growth stops (°C)
 #' }
 #'
@@ -723,8 +723,8 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
     if (i==1){
       ministics$FTEMP[i] <- 1
     }else{
-      if (ministics$UDEVCULT[i-1] < teopt){
-        ministics$FTEMP[i] <- 1 - ((ministics$UDEVCUL[i-1]-teopt)/(temin-teopt))^2
+      if (ministics$Temp[i] < teopt){
+        ministics$FTEMP[i] <- 1 - ((ministics$UDEVCULT[i-1]-teopt)/(temin-teopt))^2
       }else if (teopt <= ministics$UDEVCULT[i-1] & ministics$UDEVCULT[i-1] <= teoptbis){
         ministics$FTEMP[i] <- 1
       }else{
@@ -733,7 +733,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
 
     }
     # ministics$FTEMP[i] <- 1
-    
+
     if (ministics$DOY_2EMERG[i] == 1 & ministics$DOY_2Z89[i] == 0) {
       ministics$DELTAMS[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI[i])) * ministics$FTEMP[i]
       ministics$DELTAMS_unstressed[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI_unstressed[i])) * ministics$FTEMP[i]
