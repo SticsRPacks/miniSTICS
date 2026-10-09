@@ -42,6 +42,7 @@ valid_plant <- function() {
   list(
     tcmin = 1,
     tcopt = 1,
+    tcxstop = 1,
     flag_vern = FALSE,
     jvc = 1,
     tfroid = 1,
@@ -69,7 +70,16 @@ valid_plant <- function() {
     parsurg = 1,
     extin = 1,
     rue = 1,
-    tetstomate = 1
+    tetstomate = 1,
+    nbjgrain = 1,
+    cgrain = 1,
+    nbgrainmax = 1,
+    nbgrainmin = 1,
+    vitircarbt = 1,
+    irmax = 1,
+    pgrainmaxi = 1,
+    tminremp = 1,
+    tmaxremp = 1
   )
 }
 
