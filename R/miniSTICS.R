@@ -129,6 +129,21 @@
 #'   \item tetstomate: Soil water threshold for stomatal closure (% vol)
 #' }
 #'
+#' Grain Yield :
+#' \itemize{
+#'   \item nbjgrain : Number of days prior flowering preceding the onset of filling and impacting grain number set up (days)
+#'   \item cgrain : species-dependent parameters accounting for the slope of the relationship vitmoy - nbgrains (m^2.g^-1)
+#'   \item nbgrainmax : genetic-dependent parameter setting up the maximal number of grains (grains.m^-2)
+#'   \item nbgrainmin : genetic-dependent parameter setting up the minimal number of grains (grains.m^-2)
+#'   \item vitircarbt : slope of the linearly increase in the dynamic harvest index against thermal time (g_grain. g_biomass^-1.dc-day^-1)
+#'   \item irmax : maximal harvest index (-)
+#'   \item pgrainmaxi : maximal weight of grains at 0% water content (g)
+#'   \item tminremp : minimal temperature for grain filling (°C)
+#'   \item tmaxremp : maximal temperature for grain filling (°C)
+#' }
+#'
+#'
+#'
 #' @param weather a data.frame containing daily weather data used as
 #' forcing for the miniSTICS model.
 #'
@@ -158,7 +173,9 @@
 #' (2) leaf area expansion,
 #' (3) root growth and water uptake,
 #' (4) soil water balance,
-#' (5) biomass accumulation and partitioning.
+#' (5) biomass accumulation and partitioning
+#' (6) grain number and grain yield
+#' (7) water budget
 #'
 #' @examples
 #' # Run miniSTICS with the example dataset provided with the package
@@ -232,7 +249,9 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
       "kmax", "zlabour", "zpente", "zprlim", "lvopt",
       "adens", "bdens", "dlaimax", "pentlaimax", "vlaimax",
       "parsurg", "extin", "rue",
-      "tetstomate"
+      "tetstomate",
+      "tminremp","tmaxremp",
+      "nbjgrain", "cgrain", "nbgrainmax",  "nbgrainmin", "vitircarbt", "irmax", "pgrainmaxi"
     )
   )
   missing_parameters <- lapply(
@@ -389,6 +408,8 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ind_Z65 <- which(ministics$DOY_2Z65 > 0)
   ind_Z65 <- ind_Z65[1]
 
+  ind_nbjgrain <- ind_Z65-nbjgrain+1
+
   ministics <- ministics |>
     mutate(Sum_UPVT = (1 - DOY_2EMERG) * Sum_DcDays + (1 - DOY_2Z65) * Sum_UPVT_GER_FLO + DOY_2Z65 * (Sum_UPVT_GER_FLO[ind_Z65 - 1] + Sum_UPVT_FLO_MAT)) |>
     mutate(DOY_2Z89 = ifelse(Sum_UPVT >= stlevdrp + stdrpmat, 1, 0))
@@ -481,6 +502,13 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ministics$HUR1 <- vector("numeric", sz)
   ministics$DRAIN2 <- vector("numeric", sz)
   ministics$HUR2 <- vector("numeric", sz)
+
+  ministics$NBGRAIN <- vector("numeric", sz)
+  ministics$IRCARB <- vector("numeric", sz)
+  ministics$PGRAIN <- vector("numeric", sz)
+  ministics$FTEMPREMP <- vector("numeric", sz)
+  ministics$DELTAGS <- vector("numeric", sz)
+  ministics$YIELD <- vector("numeric", sz)
 
   LRAC_MATRIX <- matrix(NA, nrow = nrow(ministics), ncol = profsoil)
 
@@ -728,6 +756,65 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
     ministics$MASEC[i] <- sum(ministics$DELTAMS[1:i]) / 100
     ministics$MASEC_unstressed[i] <- sum(ministics$DELTAMS_unstressed[1:i]) / 100
 
+    # GRAIN NUMBER
+    # -----------------
+    if ( i < ind_Z65) {
+      ministics$NBGRAIN[i] <- 0
+    } else if (i == ind_Z65) {
+      VITMOY <- sum(ministics$DELTAMS[ind_nbjgrain:ind_Z65])/nbjgrain
+      ministics$NBGRAIN[i] <- cgrain * VITMOY * nbgrainmax
+
+      if (ministics$NBGRAIN[i] > nbgrainmax) {ministics$NBGRAIN[i] <- nbgrainmax}
+      if (ministics$NBGRAIN[i] < nbgrainmin) {ministics$NBGRAIN[i] <- nbgrainmin}
+
+    } else if (i > ind_Z65) {
+      ministics$NBGRAIN[i] <- ministics$NBGRAIN[i-1]
+    }
+
+
+    # GRAIN Yield
+    # -----------------
+    # IRCARB
+    # ******
+    if (ministics$DOY_2Z65[i] == 1 & ministics$DOY_2Z89[i] == 0) {
+      ministics$IRCARB[i] <- vitircarbt*(ministics$Sum_UPVT[i] - stlevdrp)
+
+      if (ministics$IRCARB[i] > irmax) {ministics$IRCARB[i] <- irmax}
+
+    } else {
+      ministics$IRCARB[i] <- 0
+    }
+
+    # DELTAGS
+    # ******
+    if (ministics$DOY_2Z65[i] == 1 & ministics$DOY_2Z89[i] == 0) {
+      ministics$FTEMPREMP <- ifelse (ministics$Temp[i] < tminremp,  0, ifelse (ministics$Temp[i] > tmaxremp, 0, 1))
+    } else {
+      ministics$FTEMPREMP[i] <- 1
+    }
+
+    if (i >= ind_Z65+1 & ministics$DOY_2Z89[i] == 0) {
+      ministics$DELTAGS[i]  <- ((ministics$IRCARB[i] * ministics$MASEC[i]) -
+                                (ministics$IRCARB[i-1] * ministics$MASEC[i-1]))*ministics$FTEMPREMP [i-1]
+    } else {
+      ministics$DELTAGS[i] <- 0
+    }
+
+
+    # YIELD
+    # ******
+    ministics$YIELD[i] <- sum(ministics$DELTAGS[1:i])
+
+    if (ministics$YIELD[i] > pgrainmaxi * ministics$NBGRAIN[i] /100 ) {ministics$YIELD[i] <- pgrainmaxi * ministics$NBGRAIN[i] /100}
+
+    # PGRAIN
+    # ******
+    if (ministics$NBGRAIN[i] > 0) {
+      ministics$PGRAIN[i] <- ministics$YIELD[i]/ministics$NBGRAIN[i]*100
+      if (ministics$PGRAIN[i] > pgrainmaxi) {ministics$PGRAIN[i] <- pgrainmaxi}
+    } else {
+      ministics$PGRAIN[i] <- 0
+    }
 
     # WATER BUDGET
     # ------------
