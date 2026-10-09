@@ -75,6 +75,7 @@
 #' \itemize{
 #'   \item tcmin: Base temperature (°C)
 #'   \item tcopt: Optimal temperature (°C)
+#'   \item tcxstop : Temperature at which phenological development stops (°c)
 #'   \item flag_vern: Vernalization sensitivity (logical)
 #'   \item jvc: Vernalization requirement (days)
 #'   \item tfroid: Optimal vernalization temperature (°C)
@@ -241,7 +242,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
     weather_station = c("lat", "z"),
     practices = c("sowing_year", "doy_sowing", "doy_stop_sim", "zrac0", "density"),
     plant = c(
-      "tcmin", "tcopt",
+      "tcmin", "tcopt", "tcxstop",
       "flag_vern", "jvc", "tfroid", "ampfroid",
       "flag_photo", "phobase", "phosat",
       "st2germinate", "st2emerge", "stlevamf", "stamflax", "stlevdrp", "stdrpmat",
@@ -334,10 +335,22 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
       )
   }
 
+  # to do : # compute photoperiod in the routine based on "lat"
+  # function has been added, with a check if variable does not exist, as for ETP and Temp_Moy
+
+  if (!"Photoperiod" %in% names(weather_var)) {
+
+    weather_var <- weather_var |>
+      mutate(Sol_decl = (23.45*pi/180)*sin((360*pi/180/365.25)*(DOY+283)) )
+
+    weather_var <- weather_var |>
+      mutate(Photoperiod = (24/pi)*acos(-tan(lat*pi/180)*tan(Sol_decl)) )
+
+  }
+
   weather_var <- weather_var |>
     dplyr::select(Date, Rain, Radiation, Temp, Photoperiod, ETP)
 
-  #  to do : # compute photeperiod in the routine based on "lat
 
   ministics <- tibble(doy = c(doy_sowing:doy_stop_sim)) |>
     mutate(D_Cal = year_2import + doy) |>
@@ -352,8 +365,19 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   #  This allows to use "mutate" fonction to speed up  computation process
   #  The routine should be rewritten if we wanted to simulate WStress !
 
+  # ministics <- ministics |>
+  #   mutate(UDEVCULT = ifelse(Temp < tcmin, 0, ifelse(Temp < tcopt, Temp - tcmin, tcopt - tcmin))) |>
+  #   mutate(RFPI = (Photoperiod - phosat) / (phosat - phobase) + 1) |>
+  #   mutate(JVI = max((1 - ((tfroid - Temp) / ampfroid)^2), 0))
+
+  # function has been added, to account for triangular function of udevcult
+  # need to check if the order of function is coherent
+  # 1 - check if smaller than tcmin, then 0
+  # 2 - check if greater than tcxstop, then 0
+  # 3 - check if smaller or greater than tcopt, then positive slope (tcmin-tcxtop) or negative slope ((tcopt - tcmin)/(tcopt - tcxstop)*(Temp - tcxstop))
+
   ministics <- ministics |>
-    mutate(UDEVCULT = ifelse(Temp < tcmin, 0, ifelse(Temp < tcopt, Temp - tcmin, tcopt - tcmin))) |>
+    mutate(UDEVCULT = ifelse(Temp < tcmin, 0, ifelse ( Temp > tcxstop, 0,ifelse(Temp < tcopt, Temp - tcmin, (tcopt - tcmin)/(tcopt - tcxstop)*(Temp - tcxstop) ))) ) |>
     mutate(RFPI = (Photoperiod - phosat) / (phosat - phobase) + 1) |>
     mutate(JVI = max((1 - ((tfroid - Temp) / ampfroid)^2), 0))
 

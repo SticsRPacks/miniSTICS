@@ -42,6 +42,7 @@ valid_plant <- function() {
   list(
     tcmin = 1,
     tcopt = 1,
+    tcxstop = 1,
     flag_vern = FALSE,
     jvc = 1,
     tfroid = 1,
