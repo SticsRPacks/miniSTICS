@@ -110,6 +110,10 @@ Biomass:
 \item parsurg: PAR fraction
 \item extin: Light extinction coefficient
 \item rue: Radiation use efficiency (g MJ-1)
+\item temin: minimal temperature for plant growth (°C)
+\item teopt: minimum range of optimal temperature for plant growth (°C)
+\item teoptbis: maximum range of optimal temperature for plant growth (°C)
+\item temax: Maximal temperature above which plant growth stops (°C)
 }
 
 Water stress:

@@ -123,6 +123,10 @@
 #'   \item parsurg: PAR fraction
 #'   \item extin: Light extinction coefficient
 #'   \item rue: Radiation use efficiency (g MJ-1)
+#'   \item temin: minimal temperature for plant growth (°C)
+#'   \item teopt: minimum range of optimal temperature for plant growth (°C)
+#'   \item teoptbis: maximum range of optimal temperature for plant growth (°C)
+#'   \item temax: Maximal temperature above which plant growth stops (°C)
 #' }
 #'
 #' Water stress:
@@ -243,6 +247,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
     practices = c("sowing_year", "doy_sowing", "doy_stop_sim", "zrac0", "density"),
     plant = c(
       "tcmin", "tcopt", "tcxstop",
+      "temin","teopt","teoptbis","temax",
       "flag_vern", "jvc", "tfroid", "ampfroid",
       "flag_photo", "phobase", "phosat",
       "st2germinate", "st2emerge", "stlevamf", "stamflax", "stlevdrp", "stdrpmat",
@@ -515,6 +520,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ministics$HUR1 <- vector("numeric", sz)
   ministics$HUR2 <- vector("numeric", sz)
   ministics$SWFAC <- vector("numeric", sz)
+  ministics$FTEMP <- vector("numeric",sz)
 
   ministics$DELTAMS <- vector("numeric", sz)
   ministics$DELTAMS_unstressed <- vector("numeric", sz)
@@ -765,10 +771,23 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
 
     # TOTAL BIOMASS GROWTH
     # --------------------
+    if (i==1){
+      ministics$FTEMP[i] <- 1
+    }else{
+      if (ministics$Temp[i] < teopt){
+        ministics$FTEMP[i] <- 1 - ((ministics$UDEVCULT[i-1]-teopt)/(temin-teopt))^2
+      }else if (teopt <= ministics$UDEVCULT[i-1] & ministics$UDEVCULT[i-1] <= teoptbis){
+        ministics$FTEMP[i] <- 1
+      }else{
+        ministics$FTEMP[i] <- 1-((ministics$UDEVCULT[i-1]-teoptbis)/(temax-teoptbis))^2
+      }
+
+    }
+    # ministics$FTEMP[i] <- 1
 
     if (ministics$DOY_2EMERG[i] == 1 & ministics$DOY_2Z89[i] == 0) {
-      ministics$DELTAMS[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI[i]))
-      ministics$DELTAMS_unstressed[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI_unstressed[i]))
+      ministics$DELTAMS[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI[i])) * ministics$FTEMP[i]
+      ministics$DELTAMS_unstressed[i] <- 0.95 * parsurg * ministics$Radiation[i] * rue * (1 - exp(-extin * ministics$LAI_unstressed[i])) * ministics$FTEMP[i]
     } else {
       ministics$DELTAMS[i] <- 0
       ministics$DELTAMS_unstressed[i] <- 0
