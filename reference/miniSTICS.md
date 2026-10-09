@@ -88,6 +88,8 @@ miniSTICS(soil, weather_station, practices, plant, weather)
 
   - tcopt: Optimal temperature (°C)
 
+  - tcxstop : Temperature at which phenological development stops (°c)
+
   - flag_vern: Vernalization sensitivity (logical)
 
   - jvc: Vernalization requirement (days)
