@@ -216,7 +216,7 @@
 #'   weather = weather_example
 #' )
 #'
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate left_join
 #' @importFrom tibble tibble
 #'
 #' @export
@@ -354,13 +354,12 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   }
 
   weather_var <- weather_var |>
+    mutate(Date = as.Date(Date, format = "%d/%m/%Y")) |>
     dplyr::select(Date, Rain, Radiation, Temp, Photoperiod, ETP)
 
-
-  ministics <- tibble(doy = c(doy_sowing:doy_stop_sim)) |>
-    mutate(D_Cal = year_2import + doy) |>
-    merge(weather_var, by.x = "D_Cal", by.y = "Date")
-
+  ministics <- tibble(doy = doy_sowing:doy_stop_sim) |>
+    mutate(Date = year_2import + doy - 1) |>
+    left_join(weather_var, by = "Date")
 
   # ========================================
   # ==  COMPUTE PHENOLOGICAL DEVELOPMENT  ==
@@ -437,6 +436,17 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ind_Z65 <- which(ministics$DOY_2Z65 > 0)
   ind_Z65 <- ind_Z65[1]
 
+  if (is.na(ind_Z30)) {
+    ind_Z30 <- nrow(ministics)
+  }
+  if (is.na(ind_Z39)) {
+    ind_Z39 <- nrow(ministics)
+  }
+  if (is.na(ind_Z65)) {
+    ind_Z65 <- nrow(ministics)
+  }
+
+
   ind_nbjgrain <- ind_Z65-nbjgrain+1
 
   ministics <- ministics |>
@@ -450,7 +460,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ministics <- subset(ministics, select = -c(Sum_DcDays, UPVT_GER_FLO, Sum_UPVT_GER_FLO, UPVT_FLO_MAT, Sum_UPVT_FLO_MAT))
 
   # REARRANGE COLUMNS
-  ministics <- ministics |> dplyr::select(c(D_Cal, doy, Radiation, Rain, ETP, Temp, UDEVCULT, JVI, RFVI, Photoperiod, RFPI, Sum_UPVT, DOY_2GER, DOY_2EMERG, DOY_2Z30, DOY_2Z39, DOY_2Z65, DOY_2Z89))
+  ministics <- ministics |> dplyr::select(c(Date, doy, Radiation, Rain, ETP, Temp, UDEVCULT, JVI, RFVI, Photoperiod, RFPI, Sum_UPVT, DOY_2GER, DOY_2EMERG, DOY_2Z30, DOY_2Z39, DOY_2Z65, DOY_2Z89))
 
 
   # ====================================
@@ -490,7 +500,7 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ministics$DELTAI <- vector("numeric", sz)
   ministics$DELTAI_stress <- vector("numeric", sz)
   ministics$DELTAI_sen <- vector("numeric", sz)
-  ministics$DELTAIunstr_sen
+  ministics$DELTAIunstr_sen <- vector("numeric", sz)
   ministics$LAI <- vector("numeric", sz)
   ministics$LAI_unstressed <- vector("numeric", sz)
 
