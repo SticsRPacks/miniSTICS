@@ -193,7 +193,7 @@ water balance, and biomass accumulation.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Inspect simulation outputs</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "D_Cal"              "doy"                "Radiation"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Date"               "doy"                "Radiation"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "Rain"               "ETP"                "Temp"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "UDEVCULT"           "JVI"                "RFVI"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "Photoperiod"        "RFPI"               "Sum_UPVT"          </span>
@@ -202,84 +202,37 @@ water balance, and biomass accumulation.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [19] "PFZ1"               "PFZ2"               "DeltaZEff"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22] "DeltaZ"             "ZRac"               "ULAI"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] "DELTAI_dev"         "DELTAI"             "DELTAI_stress"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "DELTAI_sen"         "LAI"                "LAI_unstressed"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "EOS"                "FlagRain"           "SEOS"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "FlagPhase2"         "SES"                "ES"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "ES_a"               "ESol_sum"           "HUR1"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "EO"                 "EOP"                "ZDemi"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "CUMULRACZ"          "TETA1"              "TETA2"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "TETA"               "TETA_moy"           "EP"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "EP_sum"             "EP_1_th"            "EP_2_th"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [52] "EP_1_a"             "EP_2_a"             "HUR2"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "SWFAC"              "FTEMP"              "DELTAMS"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "DELTAMS_unstressed" "MASEC"              "MASEC_unstressed"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "DRAIN1"             "DRAIN2"             "NBGRAIN"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "IRCARB"             "PGRAIN"             "FTEMPREMP"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "DELTAGS"            "YIELD"              "DELTAIunstr_sen"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "DELTAI_sen"         "DELTAIunstr_sen"    "LAI"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "LAI_unstressed"     "EOS"                "FlagRain"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "SEOS"               "FlagPhase2"         "SES"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "ES"                 "ES_a"               "ESol_sum"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "HUR1"               "EO"                 "EOP"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "ZDemi"              "CUMULRACZ"          "TETA1"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "TETA2"              "TETA"               "TETA_moy"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "EP"                 "EP_sum"             "EP_1_th"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [52] "EP_2_th"            "EP_1_a"             "EP_2_a"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "HUR2"               "SWFAC"              "FTEMP"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "DELTAMS"            "DELTAMS_unstressed" "MASEC"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "MASEC_unstressed"   "DRAIN1"             "DRAIN2"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "NBGRAIN"            "IRCARB"             "PGRAIN"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "FTEMPREMP"          "DELTAGS"            "YIELD"             </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2008-10-23 296      8.82  0.0 1.6036476  6.9      6.9   1 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2008-10-24 297      2.65  0.6 0.8501455  8.2      8.2   1 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2008-10-25 298      4.33  0.2 0.8764107  9.3      9.3   1 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2008-10-26 299      2.58  2.9 0.5931017 10.4     10.4   1 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2008-10-27 300      4.59  9.2 0.9288467  8.5      8.5   1 0.02222222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Photoperiod      RFPI Sum_UPVT DOY_2GER DOY_2EMERG DOY_2Z30 DOY_2Z39 DOY_2Z65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       9.910 0.2635036   -103.1        0          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       9.849 0.2590511    -96.2        0          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       9.790 0.2547445    -88.0        0          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       9.730 0.2503650    -78.7        0          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       9.672 0.2461314    -68.3        0          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       9.613 0.2418248    -59.8        1          0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   DOY_2Z89 PFZ1 PFZ2 DeltaZEff DeltaZ  ZRac ULAI DELTAI_dev DELTAI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        0    1    1     0.000  0.000 3.000    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        0    1    1     0.000  0.000 3.000    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        0    1    1     0.000  0.000 3.000    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        0    1    1     0.000  0.000 3.000    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        0    1    1     0.000  0.000 3.000    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        0    1    1     1.248  1.248 4.248    0          0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   DELTAI_stress DELTAI_sen LAI LAI_unstressed       EOS FlagRain      SEOS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             1          0   0              0 1.2321267        0 1.2321267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             1          0   0              0 1.6036476        0 2.8357743</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             1          0   0              0 0.8501455        1 0.8501455</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             1          0   0              0 0.8764107        1 0.8764107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             1          0   0              0 0.5931017        1 0.5931017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             1          0   0              0 0.9288467        1 0.9288467</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   FlagPhase2       SES        ES        ES_a  ESol_sum      HUR1 EO EOP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 1.2321267 1.2321267 -24.0000000 -24.00000 0.1300000  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          1 2.8357743 1.6036476   0.0000000 -24.00000 0.1300000  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          1 0.8501455 0.8501455   0.0000000 -24.00000 0.1320000  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          1 0.8764107 0.8764107   0.6000000 -23.40000 0.1306667  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          1 0.5931017 0.5931017   0.2000000 -23.20000 0.1396667  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          1 0.9288467 0.9288467   0.9288467 -22.27115 0.1672372  0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       ZDemi CUMULRACZ TETA1 TETA2 TETA TETA_moy EP EP_sum EP_1_th EP_2_th</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -25.86957 0.0000000     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -25.86957 0.5207498     0     0    0        0  0      0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   EP_1_a EP_2_a HUR2 SWFAC     FTEMP DELTAMS DELTAMS_unstressed MASEC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      0      0  0.3     1 1.0000000       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      0      0  0.3     1 0.8193750       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      0      0  0.3     1 0.8193750       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      0      0  0.3     1 0.8997222       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      0      0  0.3     1 0.9493750       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      0      0  0.3     1 0.9822222       0                  0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   MASEC_unstressed DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                0      0      0       0      0      0         1       0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   DELTAIunstr_sen</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5               0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 69</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Date         doy Radiation  Rain   ETP  Temp UDEVCULT   JVI   RFVI Photoperiod</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2008-10-21   295      2.65   7.2 0.686  10.5     10.5     1 0             9.97</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2008-10-22   296      6.11   0   1.23    6.9      6.9     1 0             9.91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2008-10-23   297      8.82   0   1.60    6.9      6.9     1 0             9.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 2008-10-24   298      2.65   0.6 0.850   8.2      8.2     1 0             9.79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 2008-10-25   299      4.33   0.2 0.876   9.3      9.3     1 0             9.73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> 2008-10-26   300      2.58   2.9 0.593  10.4     10.4     1 0.022<span style="text-decoration: underline;">2</span>        9.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 59 more variables: RFPI &lt;dbl&gt;, Sum_UPVT &lt;dbl&gt;, DOY_2GER &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   DOY_2EMERG &lt;dbl&gt;, DOY_2Z30 &lt;dbl&gt;, DOY_2Z39 &lt;dbl&gt;, DOY_2Z65 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   DOY_2Z89 &lt;dbl&gt;, PFZ1 &lt;dbl&gt;, PFZ2 &lt;dbl&gt;, DeltaZEff &lt;dbl&gt;, DeltaZ &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ZRac &lt;dbl&gt;, ULAI &lt;dbl&gt;, DELTAI_dev &lt;dbl&gt;, DELTAI &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   DELTAI_stress &lt;dbl&gt;, DELTAI_sen &lt;dbl&gt;, DELTAIunstr_sen &lt;dbl&gt;, LAI &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   LAI_unstressed &lt;dbl&gt;, EOS &lt;dbl&gt;, FlagRain &lt;dbl&gt;, SEOS &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   FlagPhase2 &lt;dbl&gt;, SES &lt;dbl&gt;, ES &lt;dbl&gt;, ES_a &lt;dbl&gt;, ESol_sum &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Modify plant parameters before running a new simulation</span></span></span>
 <span class="r-in"><span><span class="va">plant</span><span class="op">$</span><span class="va">rue</span> <span class="op">&lt;-</span> <span class="fl">3.5</span></span></span>

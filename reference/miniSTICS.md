@@ -266,7 +266,7 @@ result <- miniSTICS(
 
 # Inspect simulation outputs
 names(result)
-#>  [1] "D_Cal"              "doy"                "Radiation"         
+#>  [1] "Date"               "doy"                "Radiation"         
 #>  [4] "Rain"               "ETP"                "Temp"              
 #>  [7] "UDEVCULT"           "JVI"                "RFVI"              
 #> [10] "Photoperiod"        "RFPI"               "Sum_UPVT"          
@@ -275,84 +275,37 @@ names(result)
 #> [19] "PFZ1"               "PFZ2"               "DeltaZEff"         
 #> [22] "DeltaZ"             "ZRac"               "ULAI"              
 #> [25] "DELTAI_dev"         "DELTAI"             "DELTAI_stress"     
-#> [28] "DELTAI_sen"         "LAI"                "LAI_unstressed"    
-#> [31] "EOS"                "FlagRain"           "SEOS"              
-#> [34] "FlagPhase2"         "SES"                "ES"                
-#> [37] "ES_a"               "ESol_sum"           "HUR1"              
-#> [40] "EO"                 "EOP"                "ZDemi"             
-#> [43] "CUMULRACZ"          "TETA1"              "TETA2"             
-#> [46] "TETA"               "TETA_moy"           "EP"                
-#> [49] "EP_sum"             "EP_1_th"            "EP_2_th"           
-#> [52] "EP_1_a"             "EP_2_a"             "HUR2"              
-#> [55] "SWFAC"              "FTEMP"              "DELTAMS"           
-#> [58] "DELTAMS_unstressed" "MASEC"              "MASEC_unstressed"  
-#> [61] "DRAIN1"             "DRAIN2"             "NBGRAIN"           
-#> [64] "IRCARB"             "PGRAIN"             "FTEMPREMP"         
-#> [67] "DELTAGS"            "YIELD"              "DELTAIunstr_sen"   
+#> [28] "DELTAI_sen"         "DELTAIunstr_sen"    "LAI"               
+#> [31] "LAI_unstressed"     "EOS"                "FlagRain"          
+#> [34] "SEOS"               "FlagPhase2"         "SES"               
+#> [37] "ES"                 "ES_a"               "ESol_sum"          
+#> [40] "HUR1"               "EO"                 "EOP"               
+#> [43] "ZDemi"              "CUMULRACZ"          "TETA1"             
+#> [46] "TETA2"              "TETA"               "TETA_moy"          
+#> [49] "EP"                 "EP_sum"             "EP_1_th"           
+#> [52] "EP_2_th"            "EP_1_a"             "EP_2_a"            
+#> [55] "HUR2"               "SWFAC"              "FTEMP"             
+#> [58] "DELTAMS"            "DELTAMS_unstressed" "MASEC"             
+#> [61] "MASEC_unstressed"   "DRAIN1"             "DRAIN2"            
+#> [64] "NBGRAIN"            "IRCARB"             "PGRAIN"            
+#> [67] "FTEMPREMP"          "DELTAGS"            "YIELD"             
 head(result)
-#>        D_Cal doy Radiation Rain       ETP Temp UDEVCULT JVI       RFVI
-#> 1 2008-10-22 295      6.11  0.0 1.2321267  6.9      6.9   1 0.00000000
-#> 2 2008-10-23 296      8.82  0.0 1.6036476  6.9      6.9   1 0.00000000
-#> 3 2008-10-24 297      2.65  0.6 0.8501455  8.2      8.2   1 0.00000000
-#> 4 2008-10-25 298      4.33  0.2 0.8764107  9.3      9.3   1 0.00000000
-#> 5 2008-10-26 299      2.58  2.9 0.5931017 10.4     10.4   1 0.00000000
-#> 6 2008-10-27 300      4.59  9.2 0.9288467  8.5      8.5   1 0.02222222
-#>   Photoperiod      RFPI Sum_UPVT DOY_2GER DOY_2EMERG DOY_2Z30 DOY_2Z39 DOY_2Z65
-#> 1       9.910 0.2635036   -103.1        0          0        0        0        0
-#> 2       9.849 0.2590511    -96.2        0          0        0        0        0
-#> 3       9.790 0.2547445    -88.0        0          0        0        0        0
-#> 4       9.730 0.2503650    -78.7        0          0        0        0        0
-#> 5       9.672 0.2461314    -68.3        0          0        0        0        0
-#> 6       9.613 0.2418248    -59.8        1          0        0        0        0
-#>   DOY_2Z89 PFZ1 PFZ2 DeltaZEff DeltaZ  ZRac ULAI DELTAI_dev DELTAI
-#> 1        0    1    1     0.000  0.000 3.000    0          0      0
-#> 2        0    1    1     0.000  0.000 3.000    0          0      0
-#> 3        0    1    1     0.000  0.000 3.000    0          0      0
-#> 4        0    1    1     0.000  0.000 3.000    0          0      0
-#> 5        0    1    1     0.000  0.000 3.000    0          0      0
-#> 6        0    1    1     1.248  1.248 4.248    0          0      0
-#>   DELTAI_stress DELTAI_sen LAI LAI_unstressed       EOS FlagRain      SEOS
-#> 1             1          0   0              0 1.2321267        0 1.2321267
-#> 2             1          0   0              0 1.6036476        0 2.8357743
-#> 3             1          0   0              0 0.8501455        1 0.8501455
-#> 4             1          0   0              0 0.8764107        1 0.8764107
-#> 5             1          0   0              0 0.5931017        1 0.5931017
-#> 6             1          0   0              0 0.9288467        1 0.9288467
-#>   FlagPhase2       SES        ES        ES_a  ESol_sum      HUR1 EO EOP
-#> 1          1 1.2321267 1.2321267 -24.0000000 -24.00000 0.1300000  0   0
-#> 2          1 2.8357743 1.6036476   0.0000000 -24.00000 0.1300000  0   0
-#> 3          1 0.8501455 0.8501455   0.0000000 -24.00000 0.1320000  0   0
-#> 4          1 0.8764107 0.8764107   0.6000000 -23.40000 0.1306667  0   0
-#> 5          1 0.5931017 0.5931017   0.2000000 -23.20000 0.1396667  0   0
-#> 6          1 0.9288467 0.9288467   0.9288467 -22.27115 0.1672372  0   0
-#>       ZDemi CUMULRACZ TETA1 TETA2 TETA TETA_moy EP EP_sum EP_1_th EP_2_th
-#> 1 -25.86957 0.0000000     0     0    0        0  0      0       0       0
-#> 2 -25.86957 0.0000000     0     0    0        0  0      0       0       0
-#> 3 -25.86957 0.0000000     0     0    0        0  0      0       0       0
-#> 4 -25.86957 0.0000000     0     0    0        0  0      0       0       0
-#> 5 -25.86957 0.0000000     0     0    0        0  0      0       0       0
-#> 6 -25.86957 0.5207498     0     0    0        0  0      0       0       0
-#>   EP_1_a EP_2_a HUR2 SWFAC     FTEMP DELTAMS DELTAMS_unstressed MASEC
-#> 1      0      0  0.3     1 1.0000000       0                  0     0
-#> 2      0      0  0.3     1 0.8193750       0                  0     0
-#> 3      0      0  0.3     1 0.8193750       0                  0     0
-#> 4      0      0  0.3     1 0.8997222       0                  0     0
-#> 5      0      0  0.3     1 0.9493750       0                  0     0
-#> 6      0      0  0.3     1 0.9822222       0                  0     0
-#>   MASEC_unstressed DRAIN1 DRAIN2 NBGRAIN IRCARB PGRAIN FTEMPREMP DELTAGS YIELD
-#> 1                0      0      0       0      0      0         1       0     0
-#> 2                0      0      0       0      0      0         1       0     0
-#> 3                0      0      0       0      0      0         1       0     0
-#> 4                0      0      0       0      0      0         1       0     0
-#> 5                0      0      0       0      0      0         1       0     0
-#> 6                0      0      0       0      0      0         1       0     0
-#>   DELTAIunstr_sen
-#> 1               0
-#> 2               0
-#> 3               0
-#> 4               0
-#> 5               0
-#> 6               0
+#> # A tibble: 6 × 69
+#>   Date         doy Radiation  Rain   ETP  Temp UDEVCULT   JVI   RFVI Photoperiod
+#>   <date>     <int>     <dbl> <dbl> <dbl> <dbl>    <dbl> <dbl>  <dbl>       <dbl>
+#> 1 2008-10-21   295      2.65   7.2 0.686  10.5     10.5     1 0             9.97
+#> 2 2008-10-22   296      6.11   0   1.23    6.9      6.9     1 0             9.91
+#> 3 2008-10-23   297      8.82   0   1.60    6.9      6.9     1 0             9.85
+#> 4 2008-10-24   298      2.65   0.6 0.850   8.2      8.2     1 0             9.79
+#> 5 2008-10-25   299      4.33   0.2 0.876   9.3      9.3     1 0             9.73
+#> 6 2008-10-26   300      2.58   2.9 0.593  10.4     10.4     1 0.0222        9.67
+#> # ℹ 59 more variables: RFPI <dbl>, Sum_UPVT <dbl>, DOY_2GER <dbl>,
+#> #   DOY_2EMERG <dbl>, DOY_2Z30 <dbl>, DOY_2Z39 <dbl>, DOY_2Z65 <dbl>,
+#> #   DOY_2Z89 <dbl>, PFZ1 <dbl>, PFZ2 <dbl>, DeltaZEff <dbl>, DeltaZ <dbl>,
+#> #   ZRac <dbl>, ULAI <dbl>, DELTAI_dev <dbl>, DELTAI <dbl>,
+#> #   DELTAI_stress <dbl>, DELTAI_sen <dbl>, DELTAIunstr_sen <dbl>, LAI <dbl>,
+#> #   LAI_unstressed <dbl>, EOS <dbl>, FlagRain <dbl>, SEOS <dbl>,
+#> #   FlagPhase2 <dbl>, SES <dbl>, ES <dbl>, ES_a <dbl>, ESol_sum <dbl>, …
 
 # Modify plant parameters before running a new simulation
 plant$rue <- 3.5

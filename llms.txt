@@ -135,6 +135,8 @@ See the `LICENSE` file for details.
   management parameters
 - [`check_soil()`](check_soil.md) : Check miniSTICS soil parameters
 - [`miniSTICS()`](miniSTICS.md) : Run the miniSTICS crop model
+- [`miniSTICS_wrapper()`](miniSTICS_wrapper.md) : miniSTICS wrapper for
+  CroptimizR
 - [`plant_parameters()`](plant_parameters.md) : Create miniSTICS plant
   parameters
 - [`practices_example`](practices_example.md) : Example crop management
