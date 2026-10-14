@@ -436,6 +436,17 @@ miniSTICS <- function(soil, weather_station, practices, plant, weather) {
   ind_Z65 <- which(ministics$DOY_2Z65 > 0)
   ind_Z65 <- ind_Z65[1]
 
+  if (is.na(ind_Z30)) {
+    ind_Z30 <- nrow(ministics)
+  }
+  if (is.na(ind_Z39)) {
+    ind_Z39 <- nrow(ministics)
+  }
+  if (is.na(ind_Z65)) {
+    ind_Z65 <- nrow(ministics)
+  }
+
+
   ind_nbjgrain <- ind_Z65-nbjgrain+1
 
   ministics <- ministics |>
